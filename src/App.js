@@ -4,6 +4,7 @@ import './App.css';
 import Feedback from './pages/Feedback';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
+import Trivia from './pages/Trivia';
 
 export default function App() {
   return (
@@ -11,7 +12,7 @@ export default function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={ Login } />
-          <Route path="/trivia" component={ () => <h1>Trivia</h1> } />
+          <Route path="/trivia" component={ Trivia } />
           <Route path="/settings" component={ Settings } />
           <Route path="/feedback" component={ Feedback } />
         </Switch>
