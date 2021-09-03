@@ -18,6 +18,13 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  async getToken() {
+    await fetch('https://opentdb.com/api_token.php?command=request')
+      .then((response) => response.json())
+      .then(({ token }) => localStorage.setItem('token', token))
+      .catch((err) => console.error('Error:', err.message));
+  }
+
   handleInput({ target }) {
     this.setState((prevState) => ({
       [target.name]: target.value,
@@ -31,6 +38,7 @@ class Login extends React.Component {
     const { handleSavePlayer, history } = this.props;
     const { name, email } = this.state;
     handleSavePlayer({ name, email });
+    this.getToken();
     history.push('/trivia');
   }
 
