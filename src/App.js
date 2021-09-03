@@ -10,6 +10,7 @@ export default function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={ Login } />
+          <Route path="/trivia" component={ () => <h1>Trivia</h1> } />
           <Route path="/feedback" component={ Feedback } />
         </Switch>
       </BrowserRouter>

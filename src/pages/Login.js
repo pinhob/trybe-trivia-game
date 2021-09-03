@@ -28,9 +28,10 @@ class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { handleSavePlayer } = this.props;
+    const { handleSavePlayer, history } = this.props;
     const { name, email } = this.state;
     handleSavePlayer({ name, email });
+    history.push('/trivia');
   }
 
   render() {
@@ -78,6 +79,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   handleSavePlayer: PropTypes.func.isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 const mapDistatchToProps = (dispatch) => ({
