@@ -1,16 +1,17 @@
+import { SAVE_QUESTIONS } from '../actions';
+
 const INITIAL_STATE = {
-  questions: [],
+  questionsList: [],
 };
 
-const question = (state = INITIAL_STATE, action) => {
+const questions = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'value':
-
-    break;
+  case SAVE_QUESTIONS:
+    return { questionsList: [...action.payload] };
 
   default:
     return state;
   }
 };
 
-export default question;
+export default questions;

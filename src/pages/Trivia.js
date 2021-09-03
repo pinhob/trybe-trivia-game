@@ -1,4 +1,5 @@
 import React from 'react';
+import Question from '../components/Question';
 
 class Trivia extends React.Component {
   constructor() {
@@ -10,6 +11,8 @@ class Trivia extends React.Component {
   }
 
   componentDidMount() {
+    // const { handleGetQuestions } = this.props;
+    // handleGetQuestions();
     this.getQuestions();
   }
 
@@ -23,27 +26,18 @@ class Trivia extends React.Component {
   render() {
     const { questions, currentIndex } = this.state;
     const currentQuestion = questions[currentIndex];
-    console.log(currentQuestion);
+
     return (
-      <div>
-        <span data-testid="question-category">
-          { currentQuestion && currentQuestion.category }
-        </span>
-
-        <span data-testid="question-text">
-          { currentQuestion && currentQuestion.question }
-        </span>
-
-        <ul>
-          { currentQuestion && currentQuestion.incorrect_answers.map((answer) => (
-            <li data-testid="wrong-answer" key={ answer }>{ answer }</li>)) }
-          <li data-testid="correct-answer">
-            { currentQuestion && currentQuestion.correct_answer }
-          </li>
-        </ul>
-      </div>
+      <Question currentQuestion={ currentQuestion } />
     );
   }
 }
+
+// const mapStateToProps = ({ questions: { questionsList } }) => ({
+//   questionsList,
+// });
+// const mapDispatchToProps = (dispatch) => ({
+//   handleGetQuestions: () => dispatch(getQuestions()),
+// });
 
 export default Trivia;
