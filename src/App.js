@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
+import Feedback from './pages/Feedback';
 import Login from './pages/Login';
 
 export default function App() {
@@ -8,7 +9,8 @@ export default function App() {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/" component={ Login } />
+          <Route path="/" exact component={ Login } />
+          <Route path="/feedback" component={ Feedback } />
         </Switch>
       </BrowserRouter>
     </div>
