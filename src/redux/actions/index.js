@@ -5,7 +5,9 @@ export const savePlayer = (payload) => ({
   payload,
 });
 
-export const save = (payload) => ({
-  type: '',
-  payload,
-});
+export const getQuestions = () => async () => {
+  const token = localStorage.getItem('token');
+  await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`)
+    .then((response) => response.json())
+    .then((data) => this.setState({ questions: data.results }));
+};
