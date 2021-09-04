@@ -17,6 +17,5 @@ export const getQuestions = () => async (dispatch) => {
     .then((response) => response.json())
     .then((data) => {
       dispatch(saveQuestions(data.results));
-      console.log(data);
     });
 };
