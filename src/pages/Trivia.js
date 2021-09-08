@@ -5,13 +5,33 @@ import Header from '../components/Header';
 import Question from '../components/Question';
 import NextButton from '../components/NextButton';
 
-let timeout = () => {};
+let timeout = () => { };
+const questionFake = {
+  category: 'Entertainment: Video Games',
+  type: 'multiple',
+  difficulty: 'medium',
+  question: 'What is the world&#039;s first video game console?',
+  correct_answer: 'Magnavox Odyssey',
+  incorrect_answers: [
+    'Coleco Telstar',
+    'Nintendo Color TV Game',
+    'Atari 2600',
+  ],
+};
+
+const questionsFake = [
+  questionFake,
+  questionFake,
+  questionFake,
+  questionFake,
+  questionFake,
+];
 
 class Trivia extends React.Component {
   constructor() {
     super();
     this.state = {
-      questions: [],
+      questions: [...questionsFake],
       currentIndex: 0,
       isTimeOver: false,
       wrongBorder: '',
@@ -23,6 +43,8 @@ class Trivia extends React.Component {
     this.verifyQuestion = this.verifyQuestion.bind(this);
     this.setCounter = this.setCounter.bind(this);
     this.handleNextQuestion = this.handleNextQuestion.bind(this);
+    // this.handleLastQuestion = this.handleLastQuestion.bind(this);
+    // this.resetIndex = this.resetIndex.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +55,10 @@ class Trivia extends React.Component {
     const token = localStorage.getItem('token');
     await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`)
       .then((response) => response.json())
-      .then((data) => this.setState({ questions: data.results }));
+      .then((data) => this.setState({
+        questions: [...data.results],
+        currentIndex: 0,
+      }));
   }
 
   setCounter() {
@@ -49,6 +74,12 @@ class Trivia extends React.Component {
     }
   }
 
+  // resetIndex() {
+  //   this.setState({
+  //     currentIndex: 0,
+  //   });
+  // }
+
   handleTimeOver() {
     const wrongColor = '3px solid rgb(255, 0, 0)';
     const rightColor = '3px solid rgb(6, 240, 15)';
@@ -60,23 +91,14 @@ class Trivia extends React.Component {
     });
   }
 
-  verifyQuestion({ target }, currentQuestion) {
+  verifyQuestion() {
     clearTimeout(timeout);
 
-    const isWrong = currentQuestion.incorrect_answers
-      .find((answer) => answer === target.value);
+    // const isWrong = currentQuestion.incorrect_answers
+    //   .find((answer) => answer === target.value);
 
     const wrongColor = '3px solid rgb(255, 0, 0)';
     const rightColor = '3px solid rgb(6, 240, 15)';
-
-    if (isWrong) {
-      return this.setState({
-        wrongBorder: wrongColor,
-        rightBorder: wrongColor,
-        isTimeOver: true,
-        time: 0,
-      });
-    }
 
     this.setState({
       wrongBorder: wrongColor,
@@ -88,8 +110,8 @@ class Trivia extends React.Component {
 
   handleNextQuestion() {
     const { currentIndex, questions } = this.state;
-    const { history } = this.props;
     const nextIndex = currentIndex + 1;
+    const { history } = this.props;
 
     if (nextIndex < questions.length) {
       clearTimeout(timeout);
@@ -101,6 +123,9 @@ class Trivia extends React.Component {
         time: 30,
       }));
     } else {
+      this.setState({
+        currentIndex: 0,
+      });
       history.push('/feedback');
     }
   }
@@ -115,6 +140,7 @@ class Trivia extends React.Component {
       time,
     } = this.state;
     const currentQuestion = questions[currentIndex];
+    console.log(currentQuestion);
 
     return (
       <>
@@ -131,9 +157,10 @@ class Trivia extends React.Component {
           handleTimeOver={ this.handleTimeOver }
           setCounter={ this.setCounter }
         />
-
-        <NextButton handleNextQuestion={ this.handleNextQuestion } time={ time } />
-
+        <NextButton
+          handleNextQuestion={ this.handleNextQuestion }
+          time={ time }
+        />
       </>
     );
   }

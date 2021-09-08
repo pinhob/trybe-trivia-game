@@ -10,7 +10,7 @@ function NextButton({ handleNextQuestion, time }) {
       value={ time }
       style={ { opacity: time === 0 ? 1 : 0 } }
     >
-      Próxima pergunta
+      Próxima
     </button>
   );
 }

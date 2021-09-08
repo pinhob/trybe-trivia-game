@@ -7,11 +7,15 @@ class Feedback extends React.Component {
   render() {
     const { name, email, score } = this.props;
     return (
-      <header>
-        <img src={ `https://www.gravatar.com/avatar/${md5(email).toString()}` } alt="" data-testid="header-profile-picture" />
-        <span data-testid="header-player-name">{ name }</span>
-        <span data-testid="header-score">{ score }</span>
-      </header>);
+      <>
+        <header>
+          <img src={ `https://www.gravatar.com/avatar/${md5(email).toString()}` } alt="" data-testid="header-profile-picture" />
+          <span data-testid="header-player-name">{ name }</span>
+          <span data-testid="header-score">{ score }</span>
+        </header>
+        <div data-testid="feedback-text" />
+      </>
+    );
   }
 }
 

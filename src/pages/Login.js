@@ -39,6 +39,11 @@ class Login extends React.Component {
     const { handleSavePlayer, history } = this.props;
     const { name, email } = this.state;
     handleSavePlayer({ name, email });
+    localStorage.setItem('state', JSON.stringify({
+      player: {
+        name, email, assertions: 0, score: 0,
+      },
+    }));
     this.getToken();
     history.push('/trivia');
   }
