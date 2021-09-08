@@ -1,8 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Counter from '../components/Counter';
+import Header from '../components/Header';
 import Question from '../components/Question';
+import NextButton from '../components/NextButton';
+import Loading from '../components/Loading';
 
-let timeout = () => {};
+let timeout = () => { };
 
 class Trivia extends React.Component {
   constructor() {
@@ -14,11 +18,14 @@ class Trivia extends React.Component {
       wrongBorder: '',
       rightBorder: '',
       time: 30,
+      isLoading: true,
     };
 
     this.handleTimeOver = this.handleTimeOver.bind(this);
     this.verifyQuestion = this.verifyQuestion.bind(this);
     this.setCounter = this.setCounter.bind(this);
+    this.handleNextQuestion = this.handleNextQuestion.bind(this);
+    this.getQuestions = this.getQuestions.bind(this);
   }
 
   componentDidMount() {
@@ -29,7 +36,11 @@ class Trivia extends React.Component {
     const token = localStorage.getItem('token');
     await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`)
       .then((response) => response.json())
-      .then((data) => this.setState({ questions: data.results }));
+      .then((data) => this.setState({
+        questions: data.results,
+        isLoading: false,
+        currentIndex: 0,
+      }));
   }
 
   setCounter() {
@@ -56,23 +67,14 @@ class Trivia extends React.Component {
     });
   }
 
-  verifyQuestion({ target }, currentQuestion) {
+  verifyQuestion() {
     clearTimeout(timeout);
 
-    const isWrong = currentQuestion.incorrect_answers
-      .find((answer) => answer === target.value);
+    // const isWrong = currentQuestion.incorrect_answers
+    //   .find((answer) => answer === target.value);
 
     const wrongColor = '3px solid rgb(255, 0, 0)';
     const rightColor = '3px solid rgb(6, 240, 15)';
-
-    if (isWrong) {
-      return this.setState({
-        wrongBorder: wrongColor,
-        rightBorder: wrongColor,
-        isTimeOver: true,
-        time: 0,
-      });
-    }
 
     this.setState({
       wrongBorder: wrongColor,
@@ -80,6 +82,29 @@ class Trivia extends React.Component {
       isTimeOver: true,
       time: 0,
     });
+  }
+
+  handleNextQuestion() {
+    const { currentIndex, questions } = this.state;
+    const nextIndex = currentIndex + 1;
+    const { history } = this.props;
+
+    if (nextIndex < questions.length) {
+      clearTimeout(timeout);
+      this.setState((prevState) => ({
+        currentIndex: prevState.currentIndex + 1,
+        wrongBorder: '',
+        rightBorder: '',
+        isTimeOver: false,
+        time: 30,
+      }));
+    } else {
+      this.setState({
+        currentIndex: 0,
+      });
+
+      history.push('/feedback');
+    }
   }
 
   render() {
@@ -90,27 +115,41 @@ class Trivia extends React.Component {
       wrongBorder,
       rightBorder,
       time,
+      isLoading,
     } = this.state;
     const currentQuestion = questions[currentIndex];
     console.log(currentQuestion);
 
     return (
-      <>
-        <Question
-          currentQuestion={ currentQuestion }
-          isTimeOver={ isTimeOver }
-          wrongBorder={ wrongBorder }
-          rightBorder={ rightBorder }
-          verifyQuestion={ this.verifyQuestion }
-        />
-        <Counter
-          time={ time }
-          handleTimeOver={ this.handleTimeOver }
-          setCounter={ this.setCounter }
-        />
-      </>
+      isLoading
+        ? (<Loading />)
+        : (
+          <>
+            <Header />
+            <Question
+              currentQuestion={ currentQuestion }
+              isTimeOver={ isTimeOver }
+              wrongBorder={ wrongBorder }
+              rightBorder={ rightBorder }
+              verifyQuestion={ this.verifyQuestion }
+            />
+            <Counter
+              time={ time }
+              handleTimeOver={ this.handleTimeOver }
+              setCounter={ this.setCounter }
+            />
+            <NextButton
+              handleNextQuestion={ this.handleNextQuestion }
+              time={ time }
+            />
+          </>
+        )
     );
   }
 }
+
+Trivia.propTypes = {
+  history: PropTypes.shape().isRequired,
+};
 
 export default Trivia;
