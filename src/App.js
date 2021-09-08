@@ -1,6 +1,9 @@
+// @ts-check
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
+import Header from './components/Header';
+
 import Feedback from './pages/Feedback';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
@@ -10,6 +13,7 @@ export default function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Header />
         <Switch>
           <Route path="/" exact component={ Login } />
           <Route path="/trivia" component={ Trivia } />
