@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Counter from '../components/Counter';
+import Header from '../components/Header';
 import Question from '../components/Question';
+import NextButton from '../components/NextButton';
 
 let timeout = () => {};
 
@@ -19,6 +22,7 @@ class Trivia extends React.Component {
     this.handleTimeOver = this.handleTimeOver.bind(this);
     this.verifyQuestion = this.verifyQuestion.bind(this);
     this.setCounter = this.setCounter.bind(this);
+    this.handleNextQuestion = this.handleNextQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -82,6 +86,25 @@ class Trivia extends React.Component {
     });
   }
 
+  handleNextQuestion() {
+    const { currentIndex, questions } = this.state;
+    const { history } = this.props;
+    const nextIndex = currentIndex + 1;
+
+    if (nextIndex < questions.length) {
+      clearTimeout(timeout);
+      this.setState((prevState) => ({
+        currentIndex: prevState.currentIndex + 1,
+        wrongBorder: '',
+        rightBorder: '',
+        isTimeOver: false,
+        time: 30,
+      }));
+    } else {
+      history.push('/feedback');
+    }
+  }
+
   render() {
     const {
       questions,
@@ -92,10 +115,10 @@ class Trivia extends React.Component {
       time,
     } = this.state;
     const currentQuestion = questions[currentIndex];
-    console.log(currentQuestion);
 
     return (
       <>
+        <Header />
         <Question
           currentQuestion={ currentQuestion }
           isTimeOver={ isTimeOver }
@@ -108,9 +131,16 @@ class Trivia extends React.Component {
           handleTimeOver={ this.handleTimeOver }
           setCounter={ this.setCounter }
         />
+
+        <NextButton handleNextQuestion={ this.handleNextQuestion } time={ time } />
+
       </>
     );
   }
 }
+
+Trivia.propTypes = {
+  history: PropTypes.shape().isRequired,
+};
 
 export default Trivia;
