@@ -8,7 +8,7 @@ function NextButton({ handleNextQuestion, time }) {
       onClick={ handleNextQuestion }
       data-testid="btn-next"
       value={ time }
-      style={ { opacity: time === 0 ? 1 : 0 } }
+      style={ { display: time === 0 ? 'block' : 'none' } }
     >
       Próxima
     </button>
