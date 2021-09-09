@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header';
 
 import Feedback from './pages/Feedback';
 import Login from './pages/Login';
@@ -22,7 +21,6 @@ export default function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header score={ state.player.score } />
         <Switch>
           <Route path="/" exact component={ Login } />
           <Route path="/trivia" component={ Trivia } />

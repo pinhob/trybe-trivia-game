@@ -34,12 +34,21 @@ class Login extends React.Component {
     }));
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const { handleSavePlayer, history } = this.props;
     const { name, email } = this.state;
     handleSavePlayer({ name, email });
-    this.getToken();
+
+    const state = {
+      player: {
+        name, email, assertions: 0, score: 0,
+      },
+    };
+
+    localStorage.setItem('state', JSON.stringify(state));
+
+    await this.getToken();
     history.push('/trivia');
   }
 
