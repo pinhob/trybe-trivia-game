@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
+import Ranking from './components/Ranking';
 
 import Feedback from './pages/Feedback';
 import Login from './pages/Login';
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/trivia" component={ Trivia } />
           <Route path="/settings" component={ Settings } />
           <Route path="/feedback" component={ Feedback } />
+          <Route path="/ranking" component={ Ranking } />
         </Switch>
       </BrowserRouter>
     </div>
