@@ -1,5 +1,6 @@
 export const SAVE_PLAYER = 'SAVE_PLAYER';
 export const SAVE_QUESTIONS = 'SAVE_QUESTIONS';
+export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 
 export const savePlayer = (payload) => ({
   type: SAVE_PLAYER,
