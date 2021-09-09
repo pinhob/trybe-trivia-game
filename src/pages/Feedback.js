@@ -3,6 +3,7 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FeedbackMessage from '../components/FeedbackMessage';
+import FeedbackScore from '../components/FeedbackScore';
 
 class Feedback extends React.Component {
   render() {
@@ -18,6 +19,7 @@ class Feedback extends React.Component {
         </header>
         <main>
           <FeedbackMessage playerInfos={ player } />
+          <FeedbackScore player={ player } />
         </main>
       </>
     );
