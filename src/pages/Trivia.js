@@ -1,4 +1,7 @@
+// @ts-check
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Counter from '../components/Counter';
 import Question from '../components/Question';
 
@@ -58,7 +61,8 @@ class Trivia extends React.Component {
 
   verifyQuestion({ target }, currentQuestion) {
     clearTimeout(timeout);
-
+    const { dispatch } = this.props;
+    const { state } = this;
     const isWrong = currentQuestion.incorrect_answers
       .find((answer) => answer === target.value);
 
@@ -73,6 +77,11 @@ class Trivia extends React.Component {
         time: 0,
       });
     }
+
+    dispatch({
+      type: 'ANSWER_QUESTION',
+      payload: { time: state.time, difficulty: 'easy' },
+    });
 
     this.setState({
       wrongBorder: wrongColor,
@@ -112,5 +121,7 @@ class Trivia extends React.Component {
     );
   }
 }
-
-export default Trivia;
+Trivia.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+export default connect()(Trivia);

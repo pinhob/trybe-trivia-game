@@ -5,27 +5,34 @@ const INITIAL_STATE = {
   email: 'brunopinho@outlook.com',
   score: 0,
 };
-const dificuldades = {
+
+const difficultyMap = {
   easy: 1,
   medium: 2,
   hard: 3,
 };
-function calcScore(time, dificuldade, score) {
-  const magicNumber = 10;
 
-  return score + (magicNumber + (time * dificuldades[dificuldade]));
+function calcScore(time, difficulty, score) {
+  const magicNumber = 10;
+  const newScore = score + (magicNumber + time * difficultyMap[difficulty]);
+  console.log({ newScore });
+  return newScore;
 }
+
 const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_PLAYER:
     return { ...state, ...action.payload };
 
   case ANSWER_QUESTION:
-
-    return { ...state,
-      score: calcScore(action.payload.time,
-        action.payload.dificuldade,
-        state.score) };
+    return {
+      ...state,
+      score: calcScore(
+        action.payload.time,
+        action.payload.difficulty,
+        state.score,
+      ),
+    };
   default:
     return state;
   }
