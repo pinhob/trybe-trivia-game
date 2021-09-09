@@ -1,4 +1,3 @@
-// @ts-check
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,7 +7,7 @@ import Question from '../components/Question';
 import NextButton from '../components/NextButton';
 import Loading from '../components/Loading';
 
-let timeout = () => { };
+let timeout = () => {};
 
 class Trivia extends React.Component {
   constructor() {
@@ -73,8 +72,6 @@ class Trivia extends React.Component {
     clearTimeout(timeout);
     const { dispatch } = this.props;
     const { state } = this;
-    const isWrong = currentQuestion.incorrect_answers
-      .find((answer) => answer === target.value);
 
     // const isWrong = currentQuestion.incorrect_answers
     //   .find((answer) => answer === target.value);
@@ -82,24 +79,16 @@ class Trivia extends React.Component {
     const wrongColor = '3px solid rgb(255, 0, 0)';
     const rightColor = '3px solid rgb(6, 240, 15)';
 
-    if (isWrong) {
-      return this.setState({
-        wrongBorder: wrongColor,
-        rightBorder: wrongColor,
-        isTimeOver: true,
-        time: 0,
-      });
-    }
-
-    dispatch({
-      type: 'ANSWER_QUESTION',
-      payload: { time: state.time, difficulty: 'easy' },
-    });
     this.setState({
       wrongBorder: wrongColor,
       rightBorder: rightColor,
       isTimeOver: true,
       time: 0,
+    });
+
+    dispatch({
+      type: 'ANSWER_QUESTION',
+      payload: { time: state.time, difficulty: 'easy' },
     });
   }
 
