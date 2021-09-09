@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { answerQuestion, increaseAssertions } from '../redux/actions';
 import PropTypes from 'prop-types';
+import { answerQuestion, increaseAssertions } from '../redux/actions';
 import Counter from '../components/Counter';
 import Header from '../components/Header';
 import Question from '../components/Question';
@@ -71,7 +71,7 @@ class Trivia extends React.Component {
 
   verifyQuestion({ target }, currentQuestion) {
     clearTimeout(timeout);
-    const { dispatch, answerQuestion, increaseAssertions } = this.props;
+    const { answerQuestionAction, increaseAssertionsAction } = this.props;
     const { state } = this;
 
     const isWrong = currentQuestion.incorrect_answers
@@ -88,10 +88,9 @@ class Trivia extends React.Component {
     });
 
     if (!isWrong) {
-      increaseAssertions();
+      increaseAssertionsAction();
+      answerQuestionAction({ time: state.time, difficulty: 'easy' });
     }
-
-    answerQuestion({ time: state.time, difficulty: 'easy' });
   }
 
   handleNextQuestion() {
@@ -159,13 +158,14 @@ class Trivia extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  answerQuestion: (payload) => dispatch(answerQuestion(payload)),
-  increaseAssertions: () => dispatch(increaseAssertions()),
+  answerQuestionAction: (payload) => dispatch(answerQuestion(payload)),
+  increaseAssertionsAction: () => dispatch(increaseAssertions()),
 });
 
 Trivia.propTypes = {
   history: PropTypes.shape().isRequired,
-  dispatch: PropTypes.func.isRequired,
+  answerQuestionAction: PropTypes.func.isRequired,
+  increaseAssertionsAction: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Trivia);
