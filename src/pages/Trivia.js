@@ -38,11 +38,18 @@ class Trivia extends React.Component {
     const token = localStorage.getItem('token');
     await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`)
       .then((response) => response.json())
-      .then((data) => this.setState({
-        questions: data.results,
-        isLoading: false,
-        currentIndex: 0,
-      }));
+      .then(({ results }) => {
+        const questionsWithShiffledQuestions = results.map((question) => ({
+          ...question,
+          shuffledQuestions: this.shuffleQuestions(question),
+        }));
+
+        this.setState({
+          questions: questionsWithShiffledQuestions,
+          isLoading: false,
+          currentIndex: 0,
+        });
+      });
   }
 
   setCounter() {
@@ -56,6 +63,23 @@ class Trivia extends React.Component {
     } else {
       this.handleTimeOver();
     }
+  }
+
+  shuffleQuestions(currentQuestion) {
+    const incorrectAnswers = currentQuestion.incorrect_answers.map((answer) => ({
+      type: 'incorrect',
+      answer,
+    }));
+
+    const allQuestions = [
+      ...incorrectAnswers,
+      { type: 'correct', answer: currentQuestion.correct_answer },
+    ];
+
+    const sortRange = 0.5;
+    const shuffledQuestions = allQuestions.sort(() => Math.random() - sortRange);
+
+    return shuffledQuestions;
   }
 
   handleTimeOver() {
@@ -89,7 +113,7 @@ class Trivia extends React.Component {
 
     if (!isWrong) {
       increaseAssertionsAction();
-      answerQuestionAction({ time: state.time, difficulty: 'easy' });
+      answerQuestionAction({ time: state.time, difficulty: currentQuestion.difficulty });
     }
   }
 

@@ -35,34 +35,38 @@ class Question extends React.Component {
         />
 
         <div>
-          {currentQuestion.incorrect_answers.map((answer, index) => (
+          {currentQuestion.shuffledQuestions.map((question, index) => (
             <button
               type="button"
-              data-testid={ `wrong-answer-${index}` }
-              key={ answer }
+              data-testid={ question.type === 'incorrect'
+                ? `wrong-answer-${index}` : 'correct-answer' }
+              key={ question.answer }
               disabled={ isTimeOver }
-              value={ answer }
+              value={ question.answer }
               onClick={ (event) => verifyQuestion(event, currentQuestion) }
-              style={ { border: wrongBorder } }
+              style={ {
+                border: question.type === 'incorrect'
+                  ? wrongBorder : rightBorder,
+              } }
             >
-              { answer }
+              { question.answer }
             </button>
           )) }
 
-          <button
-            data-testid="correct-answer"
-            type="button"
-            disabled={ isTimeOver }
-            value={ currentQuestion.correct_answer }
-            style={ { border: rightBorder } }
-            onClick={ (event) => verifyQuestion(event, currentQuestion) }
-          >
-            { currentQuestion && currentQuestion.correct_answer }
-          </button>
         </div>
       </>
     );
   }
+  // <button
+  //   data-testid="correct-answer"
+  //   type="button"
+  //   disabled={ isTimeOver }
+  //   value={ currentQuestion.correct_answer }
+  //   style={ { border: rightBorder } }
+  //   onClick={ (event) => verifyQuestion(event, currentQuestion) }
+  // >
+  //   { currentQuestion && currentQuestion.correct_answer }
+  // </button>
 
   render() {
     const { currentQuestion } = this.props;
