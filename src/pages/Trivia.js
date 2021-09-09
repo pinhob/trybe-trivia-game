@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { answerQuestion, increaseAssertions } from '../redux/actions';
 import PropTypes from 'prop-types';
 import Counter from '../components/Counter';
 import Header from '../components/Header';
@@ -68,13 +69,13 @@ class Trivia extends React.Component {
     });
   }
 
-  verifyQuestion() {
+  verifyQuestion({ target }, currentQuestion) {
     clearTimeout(timeout);
-    const { dispatch } = this.props;
+    const { dispatch, answerQuestion, increaseAssertions } = this.props;
     const { state } = this;
 
-    // const isWrong = currentQuestion.incorrect_answers
-    //   .find((answer) => answer === target.value);
+    const isWrong = currentQuestion.incorrect_answers
+      .find((answer) => answer === target.value);
 
     const wrongColor = '3px solid rgb(255, 0, 0)';
     const rightColor = '3px solid rgb(6, 240, 15)';
@@ -86,10 +87,11 @@ class Trivia extends React.Component {
       time: 0,
     });
 
-    dispatch({
-      type: 'ANSWER_QUESTION',
-      payload: { time: state.time, difficulty: 'easy' },
-    });
+    if (!isWrong) {
+      increaseAssertions();
+    }
+
+    answerQuestion({ time: state.time, difficulty: 'easy' });
   }
 
   handleNextQuestion() {
@@ -156,9 +158,14 @@ class Trivia extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  answerQuestion: (payload) => dispatch(answerQuestion(payload)),
+  increaseAssertions: () => dispatch(increaseAssertions()),
+});
+
 Trivia.propTypes = {
   history: PropTypes.shape().isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(Trivia);
+export default connect(null, mapDispatchToProps)(Trivia);

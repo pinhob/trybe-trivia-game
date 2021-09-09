@@ -2,9 +2,12 @@ import React from 'react';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FeedbackMessage from '../components/FeedbackMessage';
 
 class Feedback extends React.Component {
   render() {
+    const playerState = JSON.parse(localStorage.getItem('state'));
+    const { player } = playerState;
     const { name, email, score } = this.props;
     return (
       <>
@@ -13,7 +16,9 @@ class Feedback extends React.Component {
           <span data-testid="header-player-name">{ name }</span>
           <span data-testid="header-score">{ score }</span>
         </header>
-        <div data-testid="feedback-text" />
+        <main>
+          <FeedbackMessage playerInfos={ player } />
+        </main>
       </>
     );
   }
