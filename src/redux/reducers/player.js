@@ -1,9 +1,10 @@
-import { SAVE_PLAYER, ANSWER_QUESTION } from '../actions';
+import { SAVE_PLAYER, ANSWER_QUESTION, INCREASE_ASSERTIONS } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
   email: 'brunopinho@outlook.com',
   score: 0,
+  assertions: 0,
 };
 
 const difficultyMap = {
@@ -33,9 +34,17 @@ const player = (state = INITIAL_STATE, action) => {
         state.score,
       ),
     };
+
+  case INCREASE_ASSERTIONS:
+    return {
+      ...state,
+      assertions: state.assertions + 1,
+    };
+
   default:
     return state;
   }
+
 };
 
 export default player;

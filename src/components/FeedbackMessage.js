@@ -12,7 +12,7 @@ class FeedbackMessage extends React.Component {
       <div className="feedback-text-box">
         {
           assertions >= THREE
-            ? <p data-testid="feedback-text">Mandou bem</p>
+            ? <p data-testid="feedback-text">Mandou bem!</p>
             : <p data-testid="feedback-text">Podia ser melhor...</p>
         }
       </div>

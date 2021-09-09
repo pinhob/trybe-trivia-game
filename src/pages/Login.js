@@ -36,15 +36,15 @@ class Login extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const { handleSavePlayer, history } = this.props;
+    const { handleSavePlayer, history, state } = this.props;
     const { name, email } = this.state;
     handleSavePlayer({ name, email });
 
-    const state = {
-      player: {
-        name, email, assertions: 0, score: 0,
-      },
-    };
+    // const state = {
+    //   player: {
+    //     name, email, assertions: 0, score: 0,
+    //   },
+    // };
 
     localStorage.setItem('state', JSON.stringify(state));
 
@@ -105,10 +105,13 @@ class Login extends React.Component {
 Login.propTypes = {
   handleSavePlayer: PropTypes.func.isRequired,
   history: PropTypes.shape().isRequired,
+  state: PropTypes.shape({}).isRequired,
 };
+
+const mapStateToProps = (state) => ({ state });
 
 const mapDistatchToProps = (dispatch) => ({
   handleSavePlayer: (player) => dispatch(savePlayer(player)),
 });
 
-export default connect(null, mapDistatchToProps)(Login);
+export default connect(mapStateToProps, mapDistatchToProps)(Login);

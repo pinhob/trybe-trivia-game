@@ -1,6 +1,7 @@
 export const SAVE_PLAYER = 'SAVE_PLAYER';
 export const SAVE_QUESTIONS = 'SAVE_QUESTIONS';
 export const ANSWER_QUESTION = 'ANSWER_QUESTION';
+export const INCREASE_ASSERTIONS = 'INCREASE_ASSERTIONS';
 
 export const savePlayer = (payload) => ({
   type: SAVE_PLAYER,
@@ -20,3 +21,12 @@ export const getQuestions = () => async (dispatch) => {
       dispatch(saveQuestions(data.results));
     });
 };
+
+export const increaseAssertions = () => ({
+  type: INCREASE_ASSERTIONS,
+});
+
+export const answerQuestion = (payload) => ({
+  type: 'ANSWER_QUESTION',
+  payload,
+});
