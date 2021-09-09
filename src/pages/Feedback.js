@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FeedbackMessage from '../components/FeedbackMessage';
 
-const playerState = JSON.parse(localStorage.getItem('state'));
-const { player } = playerState;
-
 class Feedback extends React.Component {
   render() {
+    const playerState = JSON.parse(localStorage.getItem('state'));
+    const { player } = playerState;
     const { name, email, score } = this.props;
     return (
       <>
