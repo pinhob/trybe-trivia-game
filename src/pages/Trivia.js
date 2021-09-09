@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Counter from '../components/Counter';
 import Header from '../components/Header';
@@ -6,7 +7,7 @@ import Question from '../components/Question';
 import NextButton from '../components/NextButton';
 import Loading from '../components/Loading';
 
-let timeout = () => { };
+let timeout = () => {};
 
 class Trivia extends React.Component {
   constructor() {
@@ -69,6 +70,8 @@ class Trivia extends React.Component {
 
   verifyQuestion() {
     clearTimeout(timeout);
+    const { dispatch } = this.props;
+    const { state } = this;
 
     // const isWrong = currentQuestion.incorrect_answers
     //   .find((answer) => answer === target.value);
@@ -81,6 +84,11 @@ class Trivia extends React.Component {
       rightBorder: rightColor,
       isTimeOver: true,
       time: 0,
+    });
+
+    dispatch({
+      type: 'ANSWER_QUESTION',
+      payload: { time: state.time, difficulty: 'easy' },
     });
   }
 
@@ -150,6 +158,7 @@ class Trivia extends React.Component {
 
 Trivia.propTypes = {
   history: PropTypes.shape().isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default Trivia;
+export default connect()(Trivia);
