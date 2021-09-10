@@ -2,20 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Question extends React.Component {
-  emptyQuestions() {
-    return (
-      <>
-        <span data-testid="question-category">Carregando</span>
-        <span data-testid="question-text">Carregando</span>
-        <div>
-          <button type="button" data-testid="wrong-answer">Carregando</button>
-          <button data-testid="correct-answer" type="button">Carregando</button>
-        </div>
-      </>
-    );
-  }
-
-  filledQuestion() {
+  render() {
     const {
       currentQuestion,
       isTimeOver,
@@ -25,7 +12,7 @@ class Question extends React.Component {
     } = this.props;
 
     return (
-      <>
+      <div>
         <div data-testid="question-category">
           { currentQuestion.category }
         </div>
@@ -54,32 +41,6 @@ class Question extends React.Component {
           )) }
 
         </div>
-      </>
-    );
-  }
-  // <button
-  //   data-testid="correct-answer"
-  //   type="button"
-  //   disabled={ isTimeOver }
-  //   value={ currentQuestion.correct_answer }
-  //   style={ { border: rightBorder } }
-  //   onClick={ (event) => verifyQuestion(event, currentQuestion) }
-  // >
-  //   { currentQuestion && currentQuestion.correct_answer }
-  // </button>
-
-  render() {
-    const { currentQuestion } = this.props;
-    return (
-      <div>
-        {
-          currentQuestion ? (
-            this.filledQuestion()
-          ) : (
-            this.emptyQuestions()
-          )
-        }
-
       </div>
     );
   }
