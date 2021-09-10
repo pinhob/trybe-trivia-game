@@ -10,7 +10,7 @@ class Settings extends React.Component {
     return (
       <main>
         <Title data-testid="settings-title">Configurações</Title>
-        <iframe src="https://giphy.com/embed/3nYiLDDRFqMAE" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen />
+        <iframe src="https://giphy.com/embed/3nYiLDDRFqMAE" width="480" height="360" frameBorder="0" className="giphy-embed" allowFullScreen title="Silvio" />
       </main>
     );
   }
