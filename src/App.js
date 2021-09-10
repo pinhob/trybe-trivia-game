@@ -10,6 +10,8 @@ import Login from './pages/Login';
 import Settings from './pages/Settings';
 import Trivia from './pages/Trivia';
 
+import GlobalStyle from './components/Styled/GlobalStyle';
+
 export default function App() {
   const state = useSelector((s) => s);
 
@@ -30,6 +32,7 @@ export default function App() {
           <Route path="/ranking" component={ Ranking } />
         </Switch>
       </BrowserRouter>
+      <GlobalStyle />
     </div>
   );
 }

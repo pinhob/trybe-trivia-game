@@ -1,9 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const Title = styled.h1`
+  color: #FFF;
+`;
 
 class Settings extends React.Component {
   render() {
     return (
-      <h1 data-testid="settings-title">Configurações</h1>
+      <main>
+        <Title data-testid="settings-title">Configurações</Title>
+        <iframe src="https://giphy.com/embed/3nYiLDDRFqMAE" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen />
+      </main>
     );
   }
 }
