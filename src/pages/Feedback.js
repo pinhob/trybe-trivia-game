@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FeedbackMessage from '../components/FeedbackMessage';
 import FeedbackScore from '../components/FeedbackScore';
+import { resetScoreAndAssertions } from '../redux/actions';
 
 class Feedback extends React.Component {
   render() {
     const playerState = JSON.parse(localStorage.getItem('state'));
     const { player } = playerState;
-    const { name, email, score } = this.props;
+    const { name, email, score, handleResetScoreAndAssertions } = this.props;
     return (
       <div>
         <header>
@@ -26,6 +27,7 @@ class Feedback extends React.Component {
           to="/"
           data-testid="btn-play-again"
           className="btn-play-again"
+          onClick={ handleResetScoreAndAssertions }
         >
           Jogar novamente
         </Link>
@@ -45,6 +47,7 @@ Feedback.propTypes = {
   email: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
+  handleResetScoreAndAssertions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ player: { email, name, score } }) => ({
@@ -53,4 +56,8 @@ const mapStateToProps = ({ player: { email, name, score } }) => ({
   score,
 });
 
-export default connect(mapStateToProps)(Feedback);
+const mapDispatchToProps = (dispatch) => ({
+  handleResetScoreAndAssertions: () => dispatch(resetScoreAndAssertions()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);

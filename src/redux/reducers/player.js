@@ -1,4 +1,9 @@
-import { SAVE_PLAYER, ANSWER_QUESTION, INCREASE_ASSERTIONS } from '../actions';
+import {
+  SAVE_PLAYER,
+  ANSWER_QUESTION,
+  INCREASE_ASSERTIONS,
+  RESET_SCORE_AND_ASSERTIONS,
+} from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -39,6 +44,13 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       assertions: state.assertions + 1,
+    };
+
+  case RESET_SCORE_AND_ASSERTIONS:
+    return {
+      ...state,
+      assertions: 0,
+      score: 0,
     };
 
   default:
