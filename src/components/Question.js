@@ -5,10 +5,11 @@ class Question extends React.Component {
   htmlDecode(input) {
     const e = document.createElement('div');
     e.innerHTML = input;
-    return e.childNodes[0].nodeValue;
+    return e.innerHTML;
   }
 
   render() {
+    // console.log(this.htmlDecode('What is &quot;dabbing&quot;?'));
     const {
       currentQuestion,
       isTimeOver,
@@ -24,7 +25,6 @@ class Question extends React.Component {
         </div>
         <span
           data-testid="question-text"
-          // dangerouslySetInnerHTML={ { __html:  } }
         >
           {this.htmlDecode(currentQuestion.question)}
         </span>
