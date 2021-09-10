@@ -2,20 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Question extends React.Component {
-  emptyQuestions() {
-    return (
-      <>
-        <span data-testid="question-category">Carregando</span>
-        <span data-testid="question-text">Carregando</span>
-        <div>
-          <button type="button" data-testid="wrong-answer">Carregando</button>
-          <button data-testid="correct-answer" type="button">Carregando</button>
-        </div>
-      </>
-    );
+  htmlDecode(input) {
+    const e = document.createElement('div');
+    e.innerHTML = input;
+    return e.innerHTML;
   }
 
-  filledQuestion() {
+  render() {
+    // console.log(this.htmlDecode('What is &quot;dabbing&quot;?'));
     const {
       currentQuestion,
       isTimeOver,
@@ -25,57 +19,36 @@ class Question extends React.Component {
     } = this.props;
 
     return (
-      <>
+      <div>
         <div data-testid="question-category">
           { currentQuestion.category }
         </div>
         <span
           data-testid="question-text"
-          dangerouslySetInnerHTML={ { __html: currentQuestion.question } }
-        />
+        >
+          {this.htmlDecode(currentQuestion.question)}
+        </span>
 
         <div>
-          {currentQuestion.incorrect_answers.map((answer, index) => (
+          {currentQuestion.shuffledQuestions.map((question, index) => (
             <button
               type="button"
-              data-testid={ `wrong-answer-${index}` }
-              key={ answer }
+              data-testid={ question.type === 'incorrect'
+                ? `wrong-answer-${index}` : 'correct-answer' }
+              key={ question.answer }
               disabled={ isTimeOver }
-              value={ answer }
+              value={ question.answer }
               onClick={ (event) => verifyQuestion(event, currentQuestion) }
-              style={ { border: wrongBorder } }
+              style={ {
+                border: question.type === 'incorrect'
+                  ? wrongBorder : rightBorder,
+              } }
             >
-              { answer }
+              { this.htmlDecode(question.answer) }
             </button>
           )) }
 
-          <button
-            data-testid="correct-answer"
-            type="button"
-            disabled={ isTimeOver }
-            value={ currentQuestion.correct_answer }
-            style={ { border: rightBorder } }
-            onClick={ (event) => verifyQuestion(event, currentQuestion) }
-          >
-            { currentQuestion && currentQuestion.correct_answer }
-          </button>
         </div>
-      </>
-    );
-  }
-
-  render() {
-    const { currentQuestion } = this.props;
-    return (
-      <div>
-        {
-          currentQuestion ? (
-            this.filledQuestion()
-          ) : (
-            this.emptyQuestions()
-          )
-        }
-
       </div>
     );
   }
