@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Question extends React.Component {
+  htmlDecode(input) {
+    const e = document.createElement('div');
+    e.innerHTML = input;
+    return e.childNodes[0].nodeValue;
+  }
+
   render() {
     const {
       currentQuestion,
@@ -18,8 +24,10 @@ class Question extends React.Component {
         </div>
         <span
           data-testid="question-text"
-          dangerouslySetInnerHTML={ { __html: currentQuestion.question } }
-        />
+          // dangerouslySetInnerHTML={ { __html:  } }
+        >
+          {this.htmlDecode(currentQuestion.question)}
+        </span>
 
         <div>
           {currentQuestion.shuffledQuestions.map((question, index) => (
@@ -36,7 +44,7 @@ class Question extends React.Component {
                   ? wrongBorder : rightBorder,
               } }
             >
-              { question.answer }
+              { this.htmlDecode(question.answer) }
             </button>
           )) }
 
