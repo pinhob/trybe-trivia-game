@@ -153,7 +153,7 @@ class Trivia extends React.Component {
       isLoading,
     } = this.state;
     const currentQuestion = questions[currentIndex];
-    console.log(currentQuestion);
+    // console.log(currentQuestion);
 
     return (
       isLoading

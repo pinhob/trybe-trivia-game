@@ -6,8 +6,8 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  name: 'Player',
-  email: 'brunopinho@outlook.com',
+  name: '',
+  email: '',
   score: 0,
   assertions: 0,
 };
@@ -21,7 +21,6 @@ const difficultyMap = {
 function calcScore(time, difficulty, score) {
   const magicNumber = 10;
   const newScore = score + (magicNumber + time * difficultyMap[difficulty]);
-  console.log({ newScore });
   return newScore;
 }
 
@@ -48,7 +47,8 @@ const player = (state = INITIAL_STATE, action) => {
 
   case RESET_SCORE_AND_ASSERTIONS:
     return {
-      ...state,
+      name: '',
+      email: '',
       assertions: 0,
       score: 0,
     };

@@ -1,24 +1,25 @@
 import { ADD_PLAYER_TO_RANKING, LOCALSTORAGE_TO_RANKING } from '../actions';
 
-const INITIAL_STATE = [];
+const storage = JSON.parse(localStorage.getItem('state'));
+const INITIAL_STATE = storage ? [...storage.ranking] : [];
 
 function verifyPlayerExists(state, payload) {
-  const playerExists = state.find((player) => player.name === payload.name);
+  // const playerExists = state.find((player) => player.name === payload.name);
 
-  if (playerExists) {
-    const updateState = state.map((player) => {
-      if (player.name === payload.name) {
-        return {
-          ...player,
-          score: payload.score,
-          assertions: payload.assertions,
-        };
-      }
-      return player;
-    });
+  // if (playerExists) {
+  //   const updateState = state.map((player) => {
+  //     if (player.name === payload.name) {
+  //       return {
+  //         ...player,
+  //         score: payload.score,
+  //         assertions: payload.assertions,
+  //       };
+  //     }
+  //     return player;
+  //   });
 
-    return updateState;
-  }
+  //   return updateState;
+  // }
 
   const newState = [...state, payload];
   return newState;
