@@ -9,9 +9,9 @@ class Question extends React.Component {
     e.innerHTML = input;
     return e.innerHTML;
   }
+  // console.log(this.htmlDecode('What is &quot;dabbing&quot;?'));
 
   render() {
-    // console.log(this.htmlDecode('What is &quot;dabbing&quot;?'));
     const {
       currentQuestion,
       isTimeOver,
@@ -19,13 +19,10 @@ class Question extends React.Component {
       rightBorder,
       verifyQuestion,
     } = this.props;
-
     return (
       <>
         <QuestionTopic>
-          <div data-testid="question-category">
-            { currentQuestion.category }
-          </div>
+          <div data-testid="question-category">{ currentQuestion.category }</div>
           <span
             data-testid="question-text"
           >
@@ -40,17 +37,21 @@ class Question extends React.Component {
                 ? `wrong-answer-${index}` : 'correct-answer' }
               key={ question.answer }
               disabled={ isTimeOver }
-              value={ question.answer }
-              onClick={ (event) => verifyQuestion(event, currentQuestion) }
+              onClick={ () => verifyQuestion(question.answer, currentQuestion) }
               style={ {
                 border: question.type === 'incorrect'
                   ? wrongBorder : rightBorder,
               } }
             >
-              { this.htmlDecode(question.answer) }
+              <span className="number">
+                <h4>{ index + 1 }</h4>
+              </span>
+              <span className="border" />
+              <span className="answer">
+                { this.htmlDecode(question.answer) }
+              </span>
             </button>
           )) }
-
         </QuestionAnswers>
       </>
     );
