@@ -23,14 +23,13 @@ class Ranking extends Component {
 
   getLocalStorage() {
     // const { ranking } = JSON.parse(localStorage.getItem('state'));
-    const { ranking } = this.props;
+    const { ranking, handleLocalStorageToRanking } = this.props;
     const ordered = ranking.sort((a, b) => b.score - a.score);
-    console.log(ordered);
     this.setState({ listPlayers: ordered });
-
-    const { handleLocalStorageToRanking } = this.props;
     handleLocalStorageToRanking(ordered);
-    // return ordered;
+
+    // const { handleLocalStorageToRanking } = this.props;
+    // localStorage.setItem('ranking', JSON.stringify(ordered));
   }
 
   render() {
@@ -43,7 +42,7 @@ class Ranking extends Component {
         : (
           <div data-testid="ranking-title">
             {listPlayers.map((player, index) => (
-              <div key={ player.email }>
+              <div key={ player.name }>
                 <img src={ player.gravatar } alt={ `Foto de pessoa ${player.name}` } />
                 <span data-testid={ `player-name-${index}` }>
                   {player.name}

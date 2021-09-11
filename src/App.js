@@ -16,13 +16,18 @@ import GlobalStyle from './shared/GlobalStyles';
 export default function App() {
   const state = useSelector((s) => s);
 
+  function setStorage(name, value) {
+    localStorage.setItem(name, JSON.stringify(value));
+  }
+
   useEffect(() => {
-    console.log(
-      state.player.score && localStorage.setItem('state', JSON.stringify(state)),
-      state.player.score && localStorage.setItem(
-        'ranking', JSON.stringify(state.ranking),
-      ),
-    );
+    if (state.player !== undefined) {
+      setStorage('state', state);
+      setStorage('ranking', state.ranking);
+    }
+    // state.player.score ? localStorage.setItem(
+    //   'ranking', JSON.stringify(state.ranking),
+    // ) : null;
   }, [state]);
 
   return (
