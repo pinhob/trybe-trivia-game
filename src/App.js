@@ -3,14 +3,15 @@ import { useSelector } from 'react-redux';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
-import Ranking from './components/Ranking';
+import Ranking from './pages/Ranking';
 
 import Feedback from './pages/Feedback';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
 import Trivia from './pages/Trivia';
+import GlobalStyle from './shared/GlobalStyles';
 
-import GlobalStyle from './components/Styled/GlobalStyle';
+// import GlobalStyle from './components/Styled/GlobalStyle';
 
 export default function App() {
   const state = useSelector((s) => s);
@@ -18,6 +19,9 @@ export default function App() {
   useEffect(() => {
     console.log(
       state.player.score && localStorage.setItem('state', JSON.stringify(state)),
+      state.player.score && localStorage.setItem(
+        'ranking', JSON.stringify(state.ranking),
+      ),
     );
   }, [state]);
 

@@ -2,6 +2,9 @@ export const SAVE_PLAYER = 'SAVE_PLAYER';
 export const SAVE_QUESTIONS = 'SAVE_QUESTIONS';
 export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 export const INCREASE_ASSERTIONS = 'INCREASE_ASSERTIONS';
+export const RESET_SCORE_AND_ASSERTIONS = 'RESET_SCORE_AND_ASSERTIONS';
+export const ADD_PLAYER_TO_RANKING = 'ADD_PLAYER_TO_RANKING';
+export const LOCALSTORAGE_TO_RANKING = 'LOCALSTORAGE_TO_RANKING';
 
 export const savePlayer = (payload) => ({
   type: SAVE_PLAYER,
@@ -28,5 +31,19 @@ export const increaseAssertions = () => ({
 
 export const answerQuestion = (payload) => ({
   type: 'ANSWER_QUESTION',
+  payload,
+});
+
+export const resetScoreAndAssertions = () => ({
+  type: RESET_SCORE_AND_ASSERTIONS,
+});
+
+export const addPlayerToRanking = (payload) => ({
+  type: ADD_PLAYER_TO_RANKING,
+  payload,
+});
+
+export const localStorageToRanking = (payload) => ({
+  type: LOCALSTORAGE_TO_RANKING,
   payload,
 });

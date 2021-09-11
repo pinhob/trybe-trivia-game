@@ -7,6 +7,8 @@ import Header from '../components/Header';
 import Question from '../components/Question';
 import NextButton from '../components/NextButton';
 import Loading from '../components/Loading';
+import QuestionContainer from '../shared/QuestionContainer';
+import logo from '../assets/showMilhao.png';
 
 let timeout = () => {};
 
@@ -158,23 +160,26 @@ class Trivia extends React.Component {
         ? (<Loading />)
         : (
           <>
-            <Header />
-            <Question
-              currentQuestion={ currentQuestion }
-              isTimeOver={ isTimeOver }
-              wrongBorder={ wrongBorder }
-              rightBorder={ rightBorder }
-              verifyQuestion={ this.verifyQuestion }
-            />
-            <Counter
-              time={ time }
-              handleTimeOver={ this.handleTimeOver }
-              setCounter={ this.setCounter }
-            />
-            <NextButton
-              handleNextQuestion={ this.handleNextQuestion }
-              time={ time }
-            />
+            <Header currentIndex={ currentIndex } />
+            <QuestionContainer>
+              <Question
+                currentQuestion={ currentQuestion }
+                isTimeOver={ isTimeOver }
+                wrongBorder={ wrongBorder }
+                rightBorder={ rightBorder }
+                verifyQuestion={ this.verifyQuestion }
+              />
+              <Counter
+                time={ time }
+                handleTimeOver={ this.handleTimeOver }
+                setCounter={ this.setCounter }
+              />
+              <NextButton
+                handleNextQuestion={ this.handleNextQuestion }
+                time={ time }
+              />
+              <img src={ logo } alt="Show do Milhão" />
+            </QuestionContainer>
           </>
         )
     );

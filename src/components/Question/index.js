@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import QuestionTopic from './QuestionTopic';
+import QuestionAnswers from './QuestionAnswers';
 
 class Question extends React.Component {
   htmlDecode(input) {
@@ -19,17 +21,18 @@ class Question extends React.Component {
     } = this.props;
 
     return (
-      <div>
-        <div data-testid="question-category">
-          { currentQuestion.category }
-        </div>
-        <span
-          data-testid="question-text"
-        >
-          {this.htmlDecode(currentQuestion.question)}
-        </span>
-
-        <div>
+      <>
+        <QuestionTopic>
+          <div data-testid="question-category">
+            { currentQuestion.category }
+          </div>
+          <span
+            data-testid="question-text"
+          >
+            {this.htmlDecode(currentQuestion.question)}
+          </span>
+        </QuestionTopic>
+        <QuestionAnswers>
           {currentQuestion.shuffledQuestions.map((question, index) => (
             <button
               type="button"
@@ -48,8 +51,8 @@ class Question extends React.Component {
             </button>
           )) }
 
-        </div>
-      </div>
+        </QuestionAnswers>
+      </>
     );
   }
 }
