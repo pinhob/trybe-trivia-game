@@ -6,7 +6,7 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  name: '',
+  name: 'Player',
   email: 'brunopinho@outlook.com',
   score: 0,
   assertions: 0,
