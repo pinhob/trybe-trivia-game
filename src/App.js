@@ -11,6 +11,8 @@ import Settings from './pages/Settings';
 import Trivia from './pages/Trivia';
 import GlobalStyle from './shared/GlobalStyles';
 
+// import GlobalStyle from './components/Styled/GlobalStyle';
+
 export default function App() {
   const state = useSelector((s) => s);
 
