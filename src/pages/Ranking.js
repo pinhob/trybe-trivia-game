@@ -22,13 +22,14 @@ class Ranking extends Component {
   }
 
   getLocalStorage() {
-    const { ranking } = JSON.parse(localStorage.getItem('state'));
+    // const { ranking } = JSON.parse(localStorage.getItem('state'));
+    const { ranking } = this.props;
     const ordered = ranking.sort((a, b) => b.score - a.score);
+    console.log(ordered);
     this.setState({ listPlayers: ordered });
 
     const { handleLocalStorageToRanking } = this.props;
     handleLocalStorageToRanking(ordered);
-    // const { ranking } = this.props;
     // return ordered;
   }
 
@@ -42,7 +43,7 @@ class Ranking extends Component {
         : (
           <div data-testid="ranking-title">
             {listPlayers.map((player, index) => (
-              <div key={ player }>
+              <div key={ player.email }>
                 <img src={ player.gravatar } alt={ `Foto de pessoa ${player.name}` } />
                 <span data-testid={ `player-name-${index}` }>
                   {player.name}
@@ -75,7 +76,7 @@ class Ranking extends Component {
 Ranking.propTypes = {
   handleResetScoreAndAssertions: PropTypes.func.isRequired,
   handleLocalStorageToRanking: PropTypes.func.isRequired,
-  // ranking: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  ranking: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 const mapStateToProps = ({ ranking }) => ({ ranking });

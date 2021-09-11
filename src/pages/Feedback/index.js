@@ -40,8 +40,12 @@ class Feedback extends React.Component {
           <div data-testid="header-player-name">
             {`Jogador: ${name}`}
           </div>
-          <div data-testid="header-score">
-            {`Pontos: ${score}`}
+          <div>
+            Pontos:
+            <span data-testid="header-score">
+              {' '}
+              {score}
+            </span>
           </div>
         </header>
         <main>
