@@ -1,8 +1,13 @@
-import { SAVE_PLAYER, ANSWER_QUESTION, INCREASE_ASSERTIONS } from '../actions';
+import {
+  SAVE_PLAYER,
+  ANSWER_QUESTION,
+  INCREASE_ASSERTIONS,
+  RESET_SCORE_AND_ASSERTIONS,
+} from '../actions';
 
 const INITIAL_STATE = {
   name: '',
-  email: 'brunopinho@outlook.com',
+  email: '',
   score: 0,
   assertions: 0,
 };
@@ -16,7 +21,6 @@ const difficultyMap = {
 function calcScore(time, difficulty, score) {
   const magicNumber = 10;
   const newScore = score + (magicNumber + time * difficultyMap[difficulty]);
-  console.log({ newScore });
   return newScore;
 }
 
@@ -39,6 +43,14 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       assertions: state.assertions + 1,
+    };
+
+  case RESET_SCORE_AND_ASSERTIONS:
+    return {
+      name: '',
+      email: '',
+      assertions: 0,
+      score: 0,
     };
 
   default:
