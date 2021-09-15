@@ -5,11 +5,15 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-padding: 1rem 0;
+padding: 4rem 0;
 width: 90vw;
 margin: auto;
 
 header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   img {
     width: 5.5rem;
     height: 5.5rem;
@@ -20,6 +24,7 @@ header {
   div {
     color: #fff;
     font-size: 0.85rem;
+    text-align: center;
  
     &:last-child {
       margin-top: 0.25rem;
@@ -43,6 +48,7 @@ main {
 
   .feedback-score-box {
     font-size: 1.25rem;
+    text-align: center;
 
     p {
       margin-top: 1rem;
@@ -64,10 +70,11 @@ footer {
     text-decoration: none;
     background-color: #E0B821;
     color: #fff;
-    font-size: 0.95rem;
+    font-size: 1.15rem;
     font-weight: 700;
+    text-align: center;
     width: 47%;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
     border-radius: 3px;
 
     &:last-child {

@@ -7,8 +7,9 @@ const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
 }
 
-body {
+body, html, :root {
   background-color: #273830;
+  font-family: 'Roboto', sans-serif;
 }
 
 button {

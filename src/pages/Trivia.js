@@ -95,13 +95,10 @@ class Trivia extends React.Component {
     });
   }
 
-  verifyQuestion({ target }, currentQuestion) {
+  verifyQuestion(playerAnswer, currentQuestion) {
     clearTimeout(timeout);
     const { answerQuestionAction, increaseAssertionsAction } = this.props;
     const { state } = this;
-
-    const isWrong = currentQuestion.incorrect_answers
-      .find((answer) => answer === target.value);
 
     const wrongColor = '3px solid rgb(255, 0, 0)';
     const rightColor = '3px solid rgb(6, 240, 15)';
@@ -112,6 +109,9 @@ class Trivia extends React.Component {
       isTimeOver: true,
       time: 0,
     });
+
+    const isWrong = currentQuestion.incorrect_answers
+      .find((answer) => answer === playerAnswer);
 
     if (!isWrong) {
       increaseAssertionsAction();

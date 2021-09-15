@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import './App.css';
+// import './App.css';
 import Ranking from './pages/Ranking';
 
 import Feedback from './pages/Feedback';
@@ -31,7 +31,7 @@ export default function App() {
   }, [state]);
 
   return (
-    <div className="App">
+    <>
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={ Login } />
@@ -42,6 +42,6 @@ export default function App() {
         </Switch>
       </BrowserRouter>
       <GlobalStyle />
-    </div>
+    </>
   );
 }
